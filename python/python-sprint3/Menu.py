@@ -29,8 +29,8 @@ class Menu:
             for size, price in sizes.items():
                 print(f"\t{size}: {price}$")
 
-    def get_drink_price(self, drink_type, drink_size):
-        return self.drinks[drink_type][drink_size]
+    def get_drink_price(self, drink_type, drink_kind, drink_size):
+        return self.drinks[drink_type][drink_kind][drink_size]
 
     def add_drink_type(self, drink_type, size_prices):
         self.drinks[drink_type] = size_prices
