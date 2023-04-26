@@ -1,9 +1,12 @@
 class Coffee(Drink):
-    TYPES = {
-        "Regular": 2.50,
-        "Latte": 3.50,
-        "Cappuccino": 3.00
-    }
-
-    def __init__(self, coffee_type, size):
-        super().__init__(f"{coffee_type} Coffee", size, Coffee.TYPES[coffee_type])
+    def __init__(self, name, size):
+        self.size = size
+        if size == "Small":
+            price = 2.5
+        elif size == "Medium":
+            price = 3.0
+        elif size == "Large":
+            price = 3.5
+        else:
+            raise ValueError("Invalid size: {}".format(size))
+        super().__init__(name, price)

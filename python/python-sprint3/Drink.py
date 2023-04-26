@@ -1,11 +1,5 @@
 class Drink:
-    def __init__(self, name, size, price):
+    def __init__(self, name, drink_name, price):
         self.name = name
-        self.size = size
+        self.drink_name = drink_name
         self.price = price
-
-    def get_price(self):
-        return self.price
-
-    def __str__(self):
-        return f"{self.name} ({self.size}): ${self.price:.2f}"
