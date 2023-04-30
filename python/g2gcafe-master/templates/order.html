@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>G2G | Cafe</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body style="margin: 0; padding: 0;">
+<h1 style="
+            background-color: #04AA6D;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin: 0;
+            font-size: 60px;
+            font-family: 'Bahnschrift', 'Calibri Light', sans-serif;
+        ">
+    Drinks Catalogue
+</h1>
+<div style="display: grid; grid-template-columns: repeat(5, 1fr); text-align: center; padding: 0; margin: 0">
+    {% for drink_type, drink_sizes in menu %}
+        <div style="display: flex; flex-direction: column; padding: 2rem 1rem; margin: 0; padding-bottom: .5rem !important;">
+            <h2 style="font-family: 'Bahnschrift', 'Calibri Light', sans-serif; font-size: 30px; padding: 0; margin: 0; color: #038656; padding-top: 2rem !important;">
+                {{ drink_type }}
+            </h2>
+            <div style="display: flex; flex-direction: column; padding: 0; margin: 0; padding-top: 1rem !important;">
+                <ul style="list-style-type: none; margin: 0; padding: 0">
+                    {% for size, price in drink_sizes %}
+                        <li style="color: rgba(2,89,57,0.91); font-weight: bold; font-size: 20px; padding: 0; margin: 0; padding-top: .5rem !important;">{{ size }}</li>
+                        <li style="font-weight: bold; font-size: 20px; padding: 0; margin: 0">{{ price }} $</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<div>
+    <h1 style="
+            background-color: #04AA6D;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin: 3rem 0;
+            font-size: 48px;
+            font-family: 'Bahnschrift', 'Calibri Light', sans-serif;
+        ">
+        Order Drink
+    </h1>
+    <div style="text-align: center;">
+        <form method="POST">
+            {% csrf_token %}
+            <div style="display: flex; width: 100%; justify-content: center">
+                <label for="drink_kind" style="font-size: 20px; font-weight: bold; padding-right: 1.8rem; padding-left: 5rem;">Drink Type:</label>
+                <div>
+                    <select name="drink_kind" id="drink_kind" style="font-size: 16px">
+                        {% for drink_type, _ in menu %}
+                            <option value="{{ drink_type }}">{{ drink_type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div style="display: flex; width: 100%; justify-content: center">
+                <label for="drink_size" style="font-size: 20px; font-weight: bold; padding-right: 2rem;">Drink Size:</label>
+                <select name="drink_size" id="drink_size" style="font-size: 16px">
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                </select>
+            </div>
+            <br>
+            <div style="padding-bottom: 1.5rem; display: flex; width: 100%; justify-content: center">
+                <label for="quantity" style="font-size: 20px; font-weight: bold; padding-right: 2rem;">Quantity:</label>
+                <input type="number" name="quantity" id="quantity" min="1" max="10" required style="font-size: 16px">
+            </div>
+            <br>
+            <input style="font-family: 'Calibri Light', sans-serif; font-size: 16px; background: #04AA6D; color: white; padding: 1rem 2rem; border: none; cursor: pointer" type="submit" value="Calculate order price">
+        </form>
+    </div>
+    <br>
+    {% if price %}
+        <div>
+            <h2 style="text-align: center; margin: 0; padding-bottom: .25rem; color: #04AA6D">Total Price</h2>
+            <h2 style="text-align: center; padding-bottom: 2rem; margin-top: 0">{{ price }} $</h2>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>

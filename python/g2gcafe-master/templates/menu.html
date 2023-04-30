@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Drinks Catalogue</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body style="margin: 0; padding: 0;">
+<h1 style="
+        background-color: #04AA6D;
+        color: white;
+        text-align: center;
+        padding: 3rem 0;
+        margin: 0;
+        font-size: 60px;
+        font-family: 'Bahnschrift', 'Calibri Light', sans-serif;
+    ">
+    Drinks Catalogue
+</h1>
+<div style="display: grid; grid-template-columns: repeat(5, 1fr); text-align: center; padding: 0; margin: 0">
+    {% for drink_type, drink_sizes in menu %}
+        <div style="display: flex; flex-direction: column; padding: 2rem 1rem; margin: 0; padding-bottom: .5rem !important;">
+            <h2 style="font-family: 'Bahnschrift', 'Calibri Light', sans-serif; font-size: 30px; padding: 0; margin: 0; color: #038656; padding-top: 2rem !important;">
+                {{ drink_type }}
+            </h2>
+            <div style="display: flex; flex-direction: column; padding: 0; margin: 0; padding-top: 1rem !important;">
+                <ul style="list-style-type: none; margin: 0; padding: 0">
+                    {% for size, price in drink_sizes %}
+                        <li style="color: rgba(2,89,57,0.91); font-weight: bold; font-size: 20px; padding: 0; margin: 0; padding-top: .5rem !important;">{{ size }}</li>
+                        <li style="font-weight: bold; font-size: 20px; padding: 0; margin: 0">{{ price }} $</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</body>
+</html>
